@@ -1,23 +1,19 @@
 import http from 'k6/http'
 import {check} from 'k6'
-import encoding from "k6/encoding";
+import * as urlUtils from '../../util/url_util.js'
+import * as paramUtil from '../../util/param_util.js'
 
 export let options = {
     vus: 10,
     duration: '10s'
 }
 
-const username = 'usuario1';
-const password = 'senha1';
-
 export default function (){
 
-    const credentials = `${username}:${password}`;
+    const url = urlUtils.montarUrl("/pagamento/servidor")
+    const param = paramUtil.montarHeadersApenasComBasicAuth()
 
-    const url = "http://localhost:8080/pagamento/servidor";
-
-    let response = http.get(url,
-        {headers: {"Authorization": "Basic " + encoding.b64encode(credentials)}});
+    let response = http.get(url,param);
 
     check(response, {
         "status is 200": (r) => r.status === 200,
