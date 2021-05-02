@@ -5,3 +5,13 @@ export function montarHeadersApenasComBasicAuth() {
     const credentials = `${config.USER_AUTH}:${config.PASSWORD_AUTH}`;
     return {headers: {"Authorization": "Basic " + encoding.b64encode(credentials)}}
 }
+
+export function montarHeadersComBasicAuthEContentTypeJson() {
+    const credentials = `${config.USER_AUTH}:${config.PASSWORD_AUTH}`;
+    return {
+        headers: {
+            "Authorization": "Basic " + encoding.b64encode(credentials),
+            "Content-Type": "application/json"
+        }
+    }
+}
