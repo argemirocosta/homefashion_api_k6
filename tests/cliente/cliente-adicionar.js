@@ -1,32 +1,19 @@
 import http from 'k6/http'
 import {check} from 'k6'
-import encoding from "k6/encoding";
-
-const username = 'usuario1';
-const password = 'senha1';
+import * as payloadUtil from '../../util/payload_util.js'
+import * as paramUtil from "../../util/param_util.js";
+import * as urlUtils from "../../util/url_util.js";
 
 export default function () {
 
-    const credentials = `${username}:${password}`;
+    const url = urlUtils.montarUrl("/cliente")
 
-    const url = "http://localhost:8080/cliente";
+    const payload = payloadUtil.montarPayloadClienteAdicionar(
+        "TESTE 110", "07725791485", 155)
 
-    var payload = JSON.stringify({
-        "nome": "TESTE 109",
-        "cpf": "07725791485",
-        "usuario": {
-            "id": 155
-        }
-    });
+    const param = paramUtil.montarHeadersComBasicAuthEContentTypeJson()
 
-    var headers = {
-        headers: {
-            "Authorization": "Basic " + encoding.b64encode(credentials),
-            "Content-Type": "application/json"
-        },
-    };
-
-    let response = http.post(url, payload, headers);
+    let response = http.post(url, payload, param);
 
     const check1 = check(response, {
         "status is 201": (r) => r.status === 201
