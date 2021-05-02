@@ -1,11 +1,10 @@
 import http from 'k6/http'
 import {check} from 'k6'
-import encoding from "k6/encoding";
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import {SharedArray} from "k6/data";
-
-const username = 'usuario1';
-const password = 'senha1';
+import * as payloadUtil from '../../util/payload_util.js'
+import * as paramUtil from "../../util/param_util.js";
+import * as urlUtils from "../../util/url_util.js";
 
 const csvData = new SharedArray("data from csv file", function () {
     return papaparse.parse(open('../../resources/usuario/./usuario-adicionar.csv'),
@@ -14,9 +13,9 @@ const csvData = new SharedArray("data from csv file", function () {
 
 export default function () {
 
-    const credentials = `${username}:${password}`;
+    const url = urlUtils.montarUrl("/usuarios")
 
-    const url = "http://localhost:8080/usuarios";
+    const param = paramUtil.montarHeadersComBasicAuthEContentTypeJson()
 
     for (var userPwdPair of csvData) {
         console.log(JSON.stringify(userPwdPair));
@@ -24,21 +23,10 @@ export default function () {
 
     let randomUser = csvData[Math.floor(Math.random() * csvData.length)];
 
-    var payload = JSON.stringify({
-        "nome": randomUser.nome,
-        "login": randomUser.login,
-        "senha": randomUser.senha,
-        "ativo": true
-    });
+    var payload = payloadUtil.montarPayloadUsuarioAdicionar(
+        randomUser.nome, randomUser.login, randomUser.senha)
 
-    var headers = {
-        headers: {
-            "Authorization": "Basic " + encoding.b64encode(credentials),
-            "Content-Type": "application/json"
-        },
-    };
-
-    let response = http.post(url, payload, headers);
+    let response = http.post(url, payload, param);
 
     const check1 = check(response, {
         "status is 201": (r) => r.status === 201

@@ -7,3 +7,12 @@ export function montarPayloadClienteAdicionar(nome, cpf, idUsuario) {
         }
     });
 }
+
+export function montarPayloadUsuarioAdicionar(nome, login, senha) {
+    return JSON.stringify({
+        "nome": nome,
+        "login": login,
+        "senha": senha,
+        "ativo": true
+    });
+}
