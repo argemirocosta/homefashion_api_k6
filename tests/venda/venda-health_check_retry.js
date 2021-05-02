@@ -2,16 +2,16 @@ import http from 'k6/http'
 import {Counter} from 'k6/metrics'
 import {sleep} from 'k6'
 import * as urlUtils from "../../util/url_util.js";
-import * as paramUtil from "../../util/param_util.js";
+import * as headersUtil from "../../util/headers_util.js";
 
 var retryCounter = new Counter("GetAPI_MAX_RETRY")
 
 export default function () {
 
     const url = urlUtils.montarUrl("/venda/servidor")
-    const param = paramUtil.montarHeadersApenasComBasicAuth()
+    const headers = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url, param);
+    let response = http.get(url, headers);
 
     var maxAttemps=5
     retryCounter.add(1)

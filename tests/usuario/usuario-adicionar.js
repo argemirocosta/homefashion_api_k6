@@ -3,7 +3,7 @@ import {check} from 'k6'
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import {SharedArray} from "k6/data";
 import * as payloadUtil from '../../util/payload_util.js'
-import * as paramUtil from "../../util/param_util.js";
+import * as headersUtil from "../../util/headers_util.js";
 import * as urlUtils from "../../util/url_util.js";
 
 const csvData = new SharedArray("data from csv file", function () {
@@ -15,7 +15,7 @@ export default function () {
 
     const url = urlUtils.montarUrl("/usuarios")
 
-    const param = paramUtil.montarHeadersComBasicAuthEContentTypeJson()
+    const headers = headersUtil.montarHeadersComBasicAuthEContentTypeJson()
 
     for (var userPwdPair of csvData) {
         console.log(JSON.stringify(userPwdPair));
@@ -26,7 +26,7 @@ export default function () {
     var payload = payloadUtil.montarPayloadUsuarioAdicionar(
         randomUser.nome, randomUser.login, randomUser.senha)
 
-    let response = http.post(url, payload, param);
+    let response = http.post(url, payload, headers);
 
     const check1 = check(response, {
         "status is 201": (r) => r.status === 201

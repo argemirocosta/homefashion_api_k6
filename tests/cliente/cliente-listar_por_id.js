@@ -2,7 +2,7 @@ import http from 'k6/http'
 import {check} from 'k6'
 import {Rate} from 'k6/metrics'
 import * as urlUtils from '../../util/url_util.js'
-import * as paramUtil from '../../util/param_util.js'
+import * as headersUtil from '../../util/headers_util.js'
 
 export let errorRate = new Rate('errors')
 
@@ -18,16 +18,18 @@ export let options = {
 
 export default function () {
 
-    const url = urlUtils.montarUrl("/cliente/234")
-    const param = paramUtil.montarHeadersApenasComBasicAuth()
+    const idCliente = 234
 
-    let response = http.get(url,param);
+    const url = urlUtils.montarUrl(`/cliente/${idCliente}`)
+    const headers = headersUtil.montarHeadersApenasComBasicAuth()
+
+    let response = http.get(url,headers);
 
     console.log(`response body ${response.body} for VU ${__VU} in ITERA ${__ITER}`)
 
     const check1 = check(response, {
         "status is 200": (r) => r.status === 200,
-        "is correct user": (r) => r.json().id === 234,
+        "is correct user": (r) => r.json().id === idCliente,
         "is correct cpf": (r) => r.json().cpf === "90451718054"
     });
 
