@@ -1,7 +1,8 @@
 import http from 'k6/http'
 import {check} from 'k6'
-import encoding from "k6/encoding";
 import {Rate} from 'k6/metrics'
+import * as urlUtils from '../../util/url_util.js'
+import * as paramUtil from '../../util/param_util.js'
 
 export let errorRate = new Rate('errors')
 
@@ -15,17 +16,12 @@ export let options = {
     }
 }
 
-const username = 'usuario1';
-const password = 'senha1';
-
 export default function () {
 
-    const credentials = `${username}:${password}`;
+    const url = urlUtils.montarUrl("/cliente/234")
+    const param = paramUtil.montarHeadersApenasComBasicAuth()
 
-    const url = "http://localhost:8080/cliente/234";
-
-    let response = http.get(url,
-        {headers: {"Authorization": "Basic " + encoding.b64encode(credentials)}});
+    let response = http.get(url,param);
 
     console.log(`response body ${response.body} for VU ${__VU} in ITERA ${__ITER}`)
 
