@@ -1,8 +1,8 @@
 import http from 'k6/http'
 import {Counter} from 'k6/metrics'
 import {sleep} from 'k6'
-import * as urlUtils from "../../util/url_util.js";
-import * as headersUtil from "../../util/headers_util.js";
+import * as urlUtils from "../../util/url-util.js";
+import * as headersUtil from "../../util/headers-util.js";
 
 var retryCounter = new Counter("GetAPI_MAX_RETRY")
 

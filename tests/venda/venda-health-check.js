@@ -1,7 +1,7 @@
 import http from 'k6/http'
 import {check} from 'k6'
-import * as urlUtils from '../../util/url_util.js'
-import * as headersUtil from '../../util/headers_util.js'
+import * as urlUtils from '../../util/url-util.js'
+import * as headersUtil from '../../util/headers-util.js'
 
 export let options = {
     vus: 10,
@@ -10,10 +10,10 @@ export let options = {
 
 export default function (){
 
-    const url = urlUtils.montarUrl("/pagamento/servidor")
+    const url = urlUtils.montarUrl("/venda/servidor")
     const headers = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url,headers);
+    let response = http.get(url, headers);
 
     check(response, {
         "status is 200": (r) => r.status === 200,

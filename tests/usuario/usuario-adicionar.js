@@ -2,9 +2,9 @@ import http from 'k6/http'
 import {check} from 'k6'
 import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import {SharedArray} from "k6/data";
-import * as payloadUtil from '../../util/payload_util.js'
-import * as headersUtil from "../../util/headers_util.js";
-import * as urlUtils from "../../util/url_util.js";
+import * as payloadUtil from '../../util/payload-util.js'
+import * as headersUtil from "../../util/headers-util.js";
+import * as urlUtils from "../../util/url-util.js";
 
 const csvData = new SharedArray("data from csv file", function () {
     return papaparse.parse(open('../../resources/usuario/./usuario-adicionar.csv'),
