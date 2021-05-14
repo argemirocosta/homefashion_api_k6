@@ -1,8 +1,8 @@
 import http from 'k6/http'
-import {check} from 'k6'
 import * as payloadUtil from '../../util/payload-util.js'
 import * as headersUtil from "../../util/headers-util.js";
 import * as urlUtils from "../../util/url-util.js";
+import * as checkUtil from '../../util/check-util.js'
 
 export default function () {
 
@@ -15,8 +15,6 @@ export default function () {
 
     let response = http.post(url, payload, headers);
 
-    const check1 = check(response, {
-        "status is 201": (r) => r.status === 201
-    });
+    checkUtil.checkCreate(response)
 
 }
