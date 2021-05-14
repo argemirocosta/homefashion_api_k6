@@ -13,9 +13,9 @@ export default function () {
 
     let response = http.get(url, headers);
 
-    var maxAttemps=5
+    var maxAttemps = 5
     retryCounter.add(1)
-    for(var retries=maxAttemps; retries>0; retries--) {
+    for (var retries = maxAttemps; retries > 0; retries--) {
         var numberOfAttemps = maxAttemps - retries + 1
 
         if (response.status !== 201) {

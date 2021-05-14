@@ -8,12 +8,12 @@ export let options = {
     duration: '10s'
 }
 
-export default function (){
+export default function () {
 
     const url = urlUtils.montarUrl("/cliente/servidor")
     const headers = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url,headers);
+    let response = http.get(url, headers);
 
     checkUtil.checkHealthCheck(response)
 

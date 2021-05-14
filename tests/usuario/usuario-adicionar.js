@@ -17,7 +17,7 @@ export default function () {
 
     const headers = headersUtil.montarHeadersComBasicAuthEContentTypeJson()
 
-    for (var userPwdPair of csvData) {
+    for (let userPwdPair of csvData) {
         console.log(JSON.stringify(userPwdPair));
     }
 

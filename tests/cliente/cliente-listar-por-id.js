@@ -23,7 +23,7 @@ export default function () {
     const url = urlUtils.montarUrl(`/cliente/${idCliente}`)
     const headers = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url,headers);
+    let response = http.get(url, headers);
 
     console.log(`response body ${response.body} for VU ${__VU} in ITERA ${__ITER}`)
 
