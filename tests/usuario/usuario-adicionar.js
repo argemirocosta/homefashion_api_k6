@@ -9,14 +9,14 @@ let massaDeDados = csvUtil.pegarDadoDaMassa('../../resources/usuario/./usuario-a
 
 export default function () {
 
-    const url = urlUtils.montarUrl("/usuarios")
+    const URL = urlUtils.montarUrl("/usuarios")
 
-    const headers = headersUtil.montarHeadersComBasicAuthEContentTypeJson()
+    const HEADERS = headersUtil.montarHeadersComBasicAuthEContentTypeJson()
 
     var payload = payloadUtil.montarPayloadUsuarioAdicionar(
         massaDeDados.nome, massaDeDados.login, massaDeDados.senha)
 
-    let response = http.post(url, payload, headers);
+    let response = http.post(URL, payload, HEADERS);
 
     checkUtil.checkCreate(response)
 

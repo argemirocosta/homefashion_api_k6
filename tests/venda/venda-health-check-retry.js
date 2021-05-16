@@ -8,10 +8,10 @@ var retryCounter = new Counter("GetAPI_MAX_RETRY")
 
 export default function () {
 
-    const url = urlUtils.montarUrl("/venda/servidor")
-    const headers = headersUtil.montarHeadersApenasComBasicAuth()
+    const URL = urlUtils.montarUrl("/venda/servidor")
+    const HEADERS = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url, headers);
+    let response = http.get(URL, HEADERS);
 
     var maxAttemps = 5
     retryCounter.add(1)

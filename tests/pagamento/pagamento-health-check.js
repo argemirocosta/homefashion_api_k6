@@ -10,10 +10,10 @@ export let options = {
 
 export default function (){
 
-    const url = urlUtils.montarUrl("/pagamento/servidor")
-    const headers = headersUtil.montarHeadersApenasComBasicAuth()
+    const URL = urlUtils.montarUrl("/pagamento/servidor")
+    const HEADERS = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url,headers);
+    let response = http.get(URL, HEADERS);
 
     checkUtil.checkHealthCheck(response)
 

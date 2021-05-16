@@ -18,19 +18,19 @@ export let options = {
 
 export default function () {
 
-    const idCliente = 234
+    const ID_CLIENTE = 234
 
-    const url = urlUtils.montarUrl(`/cliente/${idCliente}`)
-    const headers = headersUtil.montarHeadersApenasComBasicAuth()
+    const URL = urlUtils.montarUrl(`/cliente/${ID_CLIENTE}`)
+    const HEADERS = headersUtil.montarHeadersApenasComBasicAuth()
 
-    let response = http.get(url, headers);
+    let response = http.get(URL, HEADERS);
 
     console.log(`response body ${response.body} for VU ${__VU} in ITERA ${__ITER}`)
 
-    const check1 = checkUtil.checkListarPorId(response)
-    const check2 = checkUtil.checkError(response, 400)
+    const CHECK_1 = checkUtil.checkListarPorId(response)
+    const CHECK_2 = checkUtil.checkError(response, 400)
 
-    errorRate.add(check1)
-    errorRate.add(check2)
+    errorRate.add(CHECK_1)
+    errorRate.add(CHECK_2)
 
 }

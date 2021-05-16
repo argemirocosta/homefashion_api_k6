@@ -6,14 +6,14 @@ import * as checkUtil from '../../util/check-util.js'
 
 export default function () {
 
-    const url = urlUtils.montarUrl("/cliente")
+    const URL = urlUtils.montarUrl("/cliente")
 
-    const payload = payloadUtil.montarPayloadClienteAdicionar(
+    const PAYLOAD = payloadUtil.montarPayloadClienteAdicionar(
         "TESTE 110", "07725791485", 155)
 
-    const headers = headersUtil.montarHeadersComBasicAuthEContentTypeJson()
+    const HEADERS = headersUtil.montarHeadersComBasicAuthEContentTypeJson()
 
-    let response = http.post(url, payload, headers);
+    let response = http.post(URL, PAYLOAD, HEADERS);
 
     checkUtil.checkCreate(response)
 
